@@ -1,0 +1,107 @@
+<!-- templates/index.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Featured section -->
+<div class="featured-section">
+    {% set featured = namespace(found=false) %}
+    {% for article in articles %}
+        {% if article.featured and not featured.found %}
+            {% set featured.found = true %}
+            <div class="featured-article">
+                {% if article.image %}
+                <div class="featured-image">
+                    <img src="{{ article.image }}" alt="{{ article.title }}">
+                </div>
+                {% endif %}
+                <h2 class="featured-title">
+                    <a href="{{ article.url }}">{{ article.title }}</a>
+                </h2>
+                <div class="article-meta">
+                    {{ article.date }}
+                    {% if article.categories %}
+                    <div class="article-categories">
+                        {% for category in article.categories %}
+                        <a href="categories/{{ category|lower }}.html" class="category-tag">{{ category }}</a>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="featured-excerpt">{{ article.excerpt }}</div>
+                <div class="more-link">
+                    <a href="{{ article.url }}">MORE</a>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    <div class="top-articles">
+        {% set count = namespace(value=0) %}
+        {% for article in articles %}
+            {% if not article.featured and count.value < 3 %}
+                <article class="top-article">
+                    <div class="top-article-image">
+                        {% if article.image %}
+                        <div class="article-image">
+                            <img src="{{ article.image }}" alt="{{ article.title }}">
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="top-article-content">
+                        <h2 class="article-title">
+                            <a href="{{ article.url }}">{{ article.title }}</a>
+                        </h2>
+                        <div class="article-meta">
+                            {{ article.date }}
+                            {% if article.categories %}
+                            <div class="article-categories">
+                                {% for category in article.categories %}
+                                <a href="categories/{{ category|lower }}.html" class="category-tag">{{ category }}</a>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="article-excerpt">{{ article.excerpt }}</div>
+                        <div class="more-link">
+                            <a href="{{ article.url }}">MORE</a>
+                        </div>
+                    </div>
+                </article>
+                {% set count.value = count.value + 1 %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Regular articles grid -->
+<div class="articles-grid">
+    {% for article in articles %}
+        {% if not article.featured and loop.index > 3 %}
+        <article class="article-card">
+            {% if article.image %}
+            <div class="article-image">
+                <img src="{{ article.image }}" alt="{{ article.title }}">
+            </div>
+            {% endif %}
+            <h2 class="article-title">
+                <a href="{{ article.url }}">{{ article.title }}</a>
+            </h2>
+            <div class="article-meta">
+                {{ article.date }}
+                {% if article.categories %}
+                <div class="article-categories">
+                    {% for category in article.categories %}
+                    <a href="categories/{{ category|lower }}.html" class="category-tag">{{ category }}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="article-excerpt">{{ article.excerpt }}</div>
+            <div class="more-link">
+                <a href="{{ article.url }}">MORE</a>
+            </div>
+        </article>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

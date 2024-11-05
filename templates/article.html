@@ -1,0 +1,26 @@
+<!-- templates/article.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<article class="single-article">
+    <h1 class="article-title">{{ article.title }}</h1>
+    <div class="article-meta">
+        {{ article.date }}
+        {% if article.categories %}
+        <div class="article-categories">
+            {% for category in article.categories %}
+            <a href="categories/{{ category|lower }}.html" class="category-tag">{{ category }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    {% if article.image %}
+    <div class="article-image">
+        <img src="{{ article.image }}" alt="{{ article.title }}">
+    </div>
+    {% endif %}
+    <div class="article-content">
+        {{ article.content|safe }}
+    </div>
+</article>
+{% endblock %}

@@ -1,0 +1,34 @@
+<!-- templates/categories.html -->
+{% extends "base.html" %}
+
+{% block title %}Categories - ketman!{% endblock %}
+
+{% block content %}
+<div class="categories-container">
+    <h1 class="page-title">Categories</h1>
+    <div class="categories-grid">
+        {% for category, category_articles in categories.items() %}
+        <div class="category-card">
+            <h2 class="category-title">
+                <a href="categories/{{ category|lower }}.html">{{ category }}</a>
+            </h2>
+            <div class="category-meta">
+                <div class="category-count">{{ category_articles|length }} article{% if category_articles|length != 1 %}s{% endif %}</div>
+                <div class="category-articles-preview">
+                    {% for article in category_articles[:3] %}
+                    <div class="preview-article">
+                        <div class="preview-content">
+                            <div class="preview-title">
+                                <a href="{{ article.url }}">{{ article.title }}</a>
+                            </div>
+                            <div class="preview-date">{{ article.date }}</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

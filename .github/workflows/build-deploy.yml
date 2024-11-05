@@ -1,0 +1,61 @@
+# .github/workflows/build-deploy.yml
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'  # Specify a fixed version for consistency
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build site
+        run: |
+          python site_generator.py
+          cp -r static/* output/static/ || true  # Copy any additional static files if they exist
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./output
+
+      - name: Debug output directory
+        if: always()  # This will run even if previous steps fail
+        run: |
+          echo "Contents of output directory:"
+          ls -la ./output
+          echo "Contents of output/static directory:"
+          ls -la ./output/static || echo "Static directory not found"
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'  # only deploy from main branch
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
