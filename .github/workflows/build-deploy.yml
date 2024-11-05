@@ -23,7 +23,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'  # Specify a fixed version for consistency
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
@@ -33,20 +33,20 @@ jobs:
       - name: Build site
         run: |
           python site_generator.py
-          cp -r static/* output/static/ || true  # Copy any additional static files if they exist
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          path: ./output
+          touch output/.nojekyll  # Create .nojekyll in output directory
 
       - name: Debug output directory
-        if: always()  # This will run even if previous steps fail
+        if: always()
         run: |
           echo "Contents of output directory:"
           ls -la ./output
           echo "Contents of output/static directory:"
           ls -la ./output/static || echo "Static directory not found"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./output
 
   deploy:
     environment:
@@ -54,7 +54,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'  # only deploy from main branch
+    if: github.ref == 'refs/heads/main'
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
