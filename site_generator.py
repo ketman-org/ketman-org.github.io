@@ -21,24 +21,29 @@ def format_date(date_value):
 
 class NewsletterSiteGenerator:
     def __init__(
-        self, content_dir="content", output_dir="output", template_dir="templates"
+        self,
+        content_dir="content",
+        pages_dir="pages",
+        output_dir="output",
+        template_dir="templates",
     ):
         self.content_dir = content_dir
+        self.pages_dir = pages_dir
         self.output_dir = output_dir
         self.template_dir = template_dir
         self.env = Environment(loader=FileSystemLoader(template_dir))
         self.categories = defaultdict(list)
         self.md = markdown.Markdown(
             extensions=[
-                "fenced_code",  # For ``` code blocks
-                "codehilite",  # For syntax highlighting
-                "tables",  # For tables
-                "attr_list",  # For adding classes and IDs
-                "meta",  # For metadata
-                "footnotes",  # For footnotes
-                "toc",  # For table of contents
-                "def_list",  # For definition lists
-                "smarty",  # For smart quotes
+                "fenced_code",
+                "codehilite",
+                "tables",
+                "attr_list",
+                "meta",
+                "footnotes",
+                "toc",
+                "def_list",
+                "smarty",
             ],
             extension_configs={
                 "codehilite": {
@@ -58,6 +63,7 @@ class NewsletterSiteGenerator:
         os.makedirs(os.path.join(self.output_dir, "static", "css"), exist_ok=True)
         os.makedirs(os.path.join(self.output_dir, "static", "js"), exist_ok=True)
         os.makedirs(os.path.join(self.output_dir, "static", "images"), exist_ok=True)
+        os.makedirs(self.pages_dir, exist_ok=True)
 
     def parse_markdown_file(self, filepath):
         """Parse a markdown file and return front matter and content."""
@@ -117,10 +123,11 @@ class NewsletterSiteGenerator:
         return content
 
     def load_content(self):
-        """Load and parse all markdown files from content directory."""
+        """Load and parse all markdown files from content and pages directories."""
         articles = []
         pages = {}
 
+        # Load articles from content directory
         for filename in os.listdir(self.content_dir):
             if not filename.endswith(".md"):
                 continue
@@ -131,42 +138,49 @@ class NewsletterSiteGenerator:
             if not front_matter:
                 continue
 
-            # Determine if this is a page or a post
-            is_page = front_matter.get("type", "post") == "page"
+            # Handle regular posts
+            categories = front_matter.get("categories", [])
+            if isinstance(categories, str):
+                categories = [categories]
+            front_matter["categories"] = categories
 
-            if is_page:
-                # Handle page - preserve HTML from markdown
+            if "image" in front_matter:
+                image_filename = os.path.basename(front_matter["image"])
+                front_matter["image"] = f"static/images/{image_filename}"
+
+            article_data = {
+                "content": main_content,
+                "url": filename.replace(".md", ".html"),
+                "filename": filename,
+                **front_matter,
+            }
+
+            if "date" in article_data:
+                article_data["date"] = format_date(article_data["date"])
+
+            articles.append(article_data)
+
+            for category in categories:
+                self.categories[category].append(article_data)
+
+        # Load pages from pages directory
+        if os.path.exists(self.pages_dir):
+            for filename in os.listdir(self.pages_dir):
+                if not filename.endswith(".md"):
+                    continue
+
+                filepath = os.path.join(self.pages_dir, filename)
+                front_matter, main_content = self.parse_markdown_file(filepath)
+
+                if not front_matter:
+                    continue
+
                 pages[filename] = {
-                    "content": main_content,  # This is now HTML
+                    "content": main_content,
                     "url": filename.replace(".md", ".html"),
                     "title": front_matter.get("title", ""),
                     **front_matter,
                 }
-            else:
-                # Handle regular posts
-                categories = front_matter.get("categories", [])
-                if isinstance(categories, str):
-                    categories = [categories]
-                front_matter["categories"] = categories
-
-                if "image" in front_matter:
-                    image_filename = os.path.basename(front_matter["image"])
-                    front_matter["image"] = f"static/images/{image_filename}"
-
-                article_data = {
-                    "content": main_content,
-                    "url": filename.replace(".md", ".html"),
-                    "filename": filename,
-                    **front_matter,
-                }
-
-                if "date" in article_data:
-                    article_data["date"] = format_date(article_data["date"])
-
-                articles.append(article_data)
-
-                for category in categories:
-                    self.categories[category].append(article_data)
 
         return (
             sorted(
