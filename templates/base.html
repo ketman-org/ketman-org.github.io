@@ -1,33 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}ketman!{% endblock %}</title>
-    <link rel="stylesheet" href="{% if is_category_page %}../{% endif %}static/css/style.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="{% if is_category_page %}../{% endif %}static/css/style.css"
+    />
+    <style>
+      .logo {
+        display: flex;
+        align-items: center;
+      }
+      .logo img {
+        width: 115px;
+        height: 50px;
+        object-fit: contain;
+      }
+      .logo a {
+        text-decoration: none;
+        color: inherit;
+      }
+    </style>
+  </head>
+  <body>
     <header>
-        <div class="logo">
-            <a href="{% if is_category_page %}../{% endif %}index.html">.ketman</a>
-        </div>
-        <div class="nav-links">
-            <a href="{% if is_category_page %}../{% endif %}about.html">.about</a>
-            <a href="https://search.ketman.org">.search</a>
-            <a href="https://github.com/ketman-org">.software</a>
-            <a href="{% if is_category_page %}../{% endif %}categories.html">.categories</a>
-        </div>
+      <div class="logo">
+        <a href="{% if is_category_page %}../{% endif %}index.html">
+          <img
+            src="{% if is_category_page %}../{% endif %}static/images/logo.png"
+            alt="Ketman"
+          />
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="{% if is_category_page %}../{% endif %}about.html">.about</a>
+        <a href="https://search.ketman.org">.search</a>
+        <a href="https://github.com/ketman-org">.software</a>
+        <a href="{% if is_category_page %}../{% endif %}categories.html"
+          >.categories</a
+        >
+      </div>
     </header>
-    
-    <main>
-        {% block content %}{% endblock %}
-    </main>
-    
+
+    <main>{% block content %}{% endblock %}</main>
+
     <footer>
-        <div class="subscribe-section">
-            <a href="#" class="subscribe-button">SUBSCRIBE</a>
-        </div>
-        <p>all content copyright ketman © 2024 • all rights reserved.</p>
+      <div class="subscribe-section">
+        <a href="#" class="subscribe-button">SUBSCRIBE</a>
+      </div>
+      <p>all content copyright ketman © 2024 • all rights reserved.</p>
     </footer>
-</body>
+  </body>
 </html>
