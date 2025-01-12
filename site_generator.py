@@ -19,7 +19,7 @@ def format_date(date_value):
     return date_value
 
 
-class NewsletterSiteGenerator:
+class KetmanSiteGenerator:
     def __init__(
         self,
         content_dir="content",
@@ -33,6 +33,7 @@ class NewsletterSiteGenerator:
         self.template_dir = template_dir
         self.env = Environment(loader=FileSystemLoader(template_dir))
         self.categories = defaultdict(list)
+        self.authors = []  # Add authors list
         self.md = markdown.Markdown(
             extensions=[
                 "fenced_code",
@@ -60,6 +61,7 @@ class NewsletterSiteGenerator:
             shutil.rmtree(self.output_dir)
         os.makedirs(self.output_dir)
         os.makedirs(os.path.join(self.output_dir, "categories"), exist_ok=True)
+        os.makedirs(os.path.join(self.output_dir, "authors"), exist_ok=True)  # Add authors directory
         os.makedirs(os.path.join(self.output_dir, "static", "css"), exist_ok=True)
         os.makedirs(os.path.join(self.output_dir, "static", "js"), exist_ok=True)
         os.makedirs(os.path.join(self.output_dir, "static", "images"), exist_ok=True)
@@ -108,6 +110,7 @@ class NewsletterSiteGenerator:
         content = content.replace('href="/static/', f'href="{prefix}static/')
         content = content.replace('src="/static/', f'src="{prefix}static/')
         content = content.replace('href="/categories/', f'href="{prefix}categories/')
+        content = content.replace('href="/authors/', f'href="{prefix}authors/')  # Add authors path handling
 
         # Dynamically handle page paths
         for filename in os.listdir(self.content_dir):
@@ -122,10 +125,23 @@ class NewsletterSiteGenerator:
 
         return content
 
+    def load_authors(self):
+        """Load authors from authors.yml file."""
+        authors_path = os.path.join(os.path.dirname(self.content_dir), "authors.yml")
+        if os.path.exists(authors_path):
+            with open(authors_path, 'r') as f:
+                self.authors = yaml.safe_load(f) or []
+                # Initialize empty articles list for each author
+                for author in self.authors:
+                    author['articles'] = []
+                    
     def load_content(self):
         """Load and parse all markdown files from content and pages directories."""
         articles = []
         pages = {}
+
+        # First load authors
+        self.load_authors()
 
         # Load articles from content directory
         for filename in os.listdir(self.content_dir):
@@ -143,6 +159,12 @@ class NewsletterSiteGenerator:
             if isinstance(categories, str):
                 categories = [categories]
             front_matter["categories"] = categories
+
+            # Handle authors
+            authors = front_matter.get("authors", [])
+            if isinstance(authors, str):
+                authors = [authors]
+            front_matter["authors"] = authors
 
             if "image" in front_matter:
                 image_filename = os.path.basename(front_matter["image"])
@@ -162,6 +184,22 @@ class NewsletterSiteGenerator:
 
             for category in categories:
                 self.categories[category].append(article_data)
+
+            # Add article to corresponding authors
+            for author_name in authors:
+                for author in self.authors:
+                    if author["nickname"] == author_name:
+                        author["articles"].append(article_data)
+                        break
+
+        # Sort articles for each author
+        for author in self.authors:
+            author["articles"].sort(
+                key=lambda x: datetime.strptime(x.get("date", ""), "%A, %B %d, %Y")
+                if isinstance(x.get("date"), str)
+                else datetime.now(),
+                reverse=True
+            )
 
         # Load pages from pages directory
         if os.path.exists(self.pages_dir):
@@ -262,6 +300,15 @@ class NewsletterSiteGenerator:
         with open(os.path.join(self.output_dir, "categories.html"), "w") as f:
             f.write(categories_html)
 
+    def generate_authors_page(self):
+        """Generate the authors page."""
+        authors_template = self.env.get_template("authors.html")
+        authors_html = authors_template.render(authors=self.authors)
+        authors_html = self.adjust_paths(authors_html, "authors.html")
+        
+        with open(os.path.join(self.output_dir, "authors.html"), "w") as f:
+            f.write(authors_html)
+
     def generate_page(self, page_data, template_name):
         """Generate an individual page using specified template."""
         template = self.env.get_template(f"{template_name}.html")
@@ -298,7 +345,7 @@ class NewsletterSiteGenerator:
             with open(os.path.join(self.output_dir, article["url"]), "w") as f:
                 f.write(article_html)
 
-        # Generate individual pages - always use page.html
+        # Generate individual pages
         for filename, page_data in pages.items():
             self.generate_page(page_data, "page")
 
@@ -306,10 +353,13 @@ class NewsletterSiteGenerator:
         self.generate_category_pages()
         self.generate_categories_index()
 
+        # Generate authors page
+        self.generate_authors_page()
+
         # Copy static files
         self.copy_static_files()
 
 
 if __name__ == "__main__":
-    generator = NewsletterSiteGenerator()
+    generator = KetmanSiteGenerator()
     generator.generate_site()

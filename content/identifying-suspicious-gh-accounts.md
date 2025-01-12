@@ -4,7 +4,7 @@ date: 2024-11-01
 categories: 
     - Investigation
     - DPRK  
-author: Ketman
+authors: [0xfigo]
 image: featured.png
 excerpt:
     The investigation into the threat actor associated with DPRK activities has revealed several interesting insights into how to track this actor's activity based on their own presentation on GitHub. 

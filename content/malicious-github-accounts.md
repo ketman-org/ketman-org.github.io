@@ -4,8 +4,8 @@ date: 2024-11-01
 categories:
   - Software
   - DPRK
-author: Ketman
 image: article-image.png
+authors: [blackbigswan]
 # featured: true
 excerpt: On classifying GitHub profiles as potentially malicious using gh-fake-analyzer.
 ---

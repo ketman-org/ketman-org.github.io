@@ -1,10 +1,16 @@
-<!-- templates/article.html -->
 {% extends "base.html" %}
 
 {% block content %}
 <article class="single-article">
     <h1 class="article-title">{{ article.title }}</h1>
     <div class="article-meta">
+        {% if article.authors %}
+        <div class="article-authors">
+            By: {% for author in article.authors %}
+            <a href="authors.html#{{ author|lower }}" class="article-author">{{ author }}</a>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
         {{ article.date }}
         {% if article.categories %}
         <div class="article-categories">

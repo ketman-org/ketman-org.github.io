@@ -34,8 +34,8 @@ your-repository/
 
 2. Clone the repository locally:
 ```bash
-git clone https://github.com/your-organization/website.git
-cd website
+git clone https://github.com/ketman-org/ketman-org.github.io
+cd ketman-org.github.io
 ```
 
 3. Create `requirements.txt`:
