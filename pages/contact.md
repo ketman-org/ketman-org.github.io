@@ -1,5 +1,5 @@
 ---
-title: Reach Out
+title: Contact
 type: page
 ---
 

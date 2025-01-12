@@ -18,6 +18,13 @@
                     <a href="{{ article.url }}">{{ article.title }}</a>
                 </h2>
                 <div class="article-meta">
+                    {% if article.authors %}
+                    <div class="article-authors">
+                        By: {% for author in article.authors %}
+                        <a href="authors.html#{{ author|lower }}" class="article-author">{{ author }}</a>{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                     {{ article.date }}
                     {% if article.categories %}
                     <div class="article-categories">
@@ -52,6 +59,13 @@
                             <a href="{{ article.url }}">{{ article.title }}</a>
                         </h2>
                         <div class="article-meta">
+                            {% if article.authors %}
+                            <div class="article-authors">
+                                By: {% for author in article.authors %}
+                                <a href="authors.html#{{ author|lower }}" class="article-author">{{ author }}</a>{% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
                             {{ article.date }}
                             {% if article.categories %}
                             <div class="article-categories">
@@ -87,6 +101,13 @@
                 <a href="{{ article.url }}">{{ article.title }}</a>
             </h2>
             <div class="article-meta">
+                {% if article.authors %}
+                <div class="article-authors">
+                    By: {% for author in article.authors %}
+                    <a href="authors.html#{{ author|lower }}" class="article-author">{{ author }}</a>{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
                 {{ article.date }}
                 {% if article.categories %}
                 <div class="article-categories">

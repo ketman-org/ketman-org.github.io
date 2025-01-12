@@ -133,7 +133,7 @@ header {
 .top-article-content {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.25rem;  /* Reduced from 0.5rem */
 }
 
 .top-article .article-title {
@@ -163,7 +163,7 @@ header {
 .article-card {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.25rem;  /* Minimal gap */
     border-top: none;
     padding-top: 0;
 }
@@ -192,16 +192,16 @@ header {
     color: var(--text-color);
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0;  /* Removed gap */
     text-align: left;
+    margin-bottom: 0.25rem;  /* Minimal margin */
 }
 
+
 .article-categories {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    text-align: left;
+    margin-top: 0.25rem;  /* Small margin for categories */
 }
+
 
 .category-tag {
     font-size: 0.8rem;
@@ -215,14 +215,13 @@ header {
     font-size: 0.9rem;
     line-height: 1.4;
     text-align: left;
+    margin-top: 0;  /* Removed top margin */
 }
+
 
 /* More Link */
 .more-link {
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    font-weight: bold;
-    text-align: left;
+    margin-top: 0.5rem;  /* Add some space before MORE link */
 }
 
 /* Single Article Page */
@@ -686,3 +685,154 @@ footer {
 .codehilite .vg { color: #008080 } /* Name.Variable.Global */
 .codehilite .vi { color: #008080 } /* Name.Variable.Instance */
 .codehilite .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+/* Author grid and card styles */
+.authors-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin: 2rem 0;
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+.author-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    scroll-margin-top: 2rem; /* For smooth scrolling to anchor */
+}
+
+.author-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.author-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.author-nickname {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.author-bio {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    max-width: 600px;
+}
+
+/* Author articles section */
+.author-articles {
+    width: 100%;
+    text-align: left;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.articles-heading {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+.articles-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.article-item {
+    margin-bottom: 1rem;
+    transition: transform 0.2s ease;
+}
+
+.article-item:hover {
+    transform: translateX(5px);
+}
+
+.article-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 0.5rem 0;
+    gap: 1rem;
+}
+
+.article-link:hover {
+    color: var(--link-hover-color);
+}
+
+.article-link .article-title {
+    font-weight: normal;
+    font-size: 0.95rem;
+}
+
+.article-link .article-date {
+    font-size: 0.8rem;
+    color: #666;
+    white-space: nowrap;
+}
+
+/* Article meta styles (for article.html) */
+.article-meta {
+    margin-bottom: 2rem;
+}
+
+.article-authors {
+    margin-bottom: 0;  /* Remove author margin */
+}
+
+.article-author {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.article-author:hover {
+    text-decoration: underline;
+}
+
+/* Author socials */
+.author-socials {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.social-link {
+    color: var(--text-color);
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-link:hover {
+    transform: translateY(-2px);
+}
+
+.social-link.github:hover {
+    color: #333;
+}
+
+.social-link.twitter:hover {
+    color: #1DA1F2;
+}
+
+.social-link.linkedin:hover {
+    color: #0077B5;
+}

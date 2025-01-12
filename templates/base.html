@@ -36,12 +36,11 @@
       </div>
       <div class="nav-links">
         <a href="{% if is_category_page %}../{% endif %}about.html">.about</a>
+        <a href="{% if is_category_page %}../{% endif %}authors.html">.authors</a>
         <a href="https://search.ketman.org">.search</a>
         <a href="https://github.com/ketman-org">.software</a>
-        <a href="{% if is_category_page %}../{% endif %}categories.html"
-          >.categories</a
-        >
-      </div>
+        <a href="{% if is_category_page %}../{% endif %}categories.html">.categories</a>
+    </div>
     </header>
 
     <main>{% block content %}{% endblock %}</main>
