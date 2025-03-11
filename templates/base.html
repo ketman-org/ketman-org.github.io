@@ -3,12 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="static/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="static/images/favicon.ico" type="image/x-icon" />
     <title>{% block title %}ketman!{% endblock %}</title>
     <link
       rel="stylesheet"
       href="{% if is_category_page %}../{% endif %}static/css/style.css"
     />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CTW19CP56V"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-CTW19CP56V');
+    </script>
     <style>
       .logo {
         display: flex;
@@ -22,6 +30,16 @@
       .logo a {
         text-decoration: none;
         color: inherit;
+      }
+      .info {
+        text-align: center;
+        margin: 20px 0;
+        font-size: 1.1em;
+        font-style: italic;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        position: relative;
       }
     </style>
   </head>
@@ -37,19 +55,23 @@
       </div>
       <div class="nav-links">
         <a href="{% if is_category_page %}../{% endif %}about.html">.about</a>
-        <a href="{% if is_category_page %}../{% endif %}authors.html">.authors</a>
+        <a href="{% if is_category_page %}../{% endif %}authors.html"
+          >.authors</a
+        >
         <a href="https://search.ketman.org">.search</a>
         <a href="https://github.com/ketman-org">.software</a>
-        <a href="{% if is_category_page %}../{% endif %}categories.html">.categories</a>
-    </div>
+        <a href="{% if is_category_page %}../{% endif %}categories.html"
+          >.categories</a
+        >
+      </div>
     </header>
-
+    <div class="info">
+      <a href="about.html">Threat intelligence for
+        remote & open source organizations</a>
+    </div>
     <main>{% block content %}{% endblock %}</main>
 
     <footer>
-      <div class="subscribe-section">
-        <a href="#" class="subscribe-button">SUBSCRIBE</a>
-      </div>
       <p>all content copyright ketman © 2024 • all rights reserved.</p>
     </footer>
   </body>

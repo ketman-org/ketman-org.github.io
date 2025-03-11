@@ -3,6 +3,7 @@ title: DPRK IT Workers threat in Open Source Organizations
 date: 2025-03-01
 categories:
   - DPRK
+  - Guides
 image: yet-another.jpeg
 authors: [blackbigswan]
 featured: true
@@ -26,20 +27,15 @@ Ketman has been live for a month. The first report is [here](https://ketman.org/
 * Are you recently funded, struggling to hire? (Early stage)
 
 If you answer **"yes"** to **any** of the above, read on.
+
 ## Background
 
 I remember the 2020/21 blockchain developer space. Spit on the hand and shake, push a PR, then, give a wallet address and get paid. Fifty other contributors scooped from Twitter doing the same. Fun times. Almost a cultural movement—remote, open, borderless. Just push the code. It somewhat also rode on the back of "Everyone should learn to code" and rise of the freelancer movements.
 
 Those principles continue, even if the effectiveness of such organizations was/is questionable. The idea took root and became part of the remote work ethos. **From around 2020, someone in the North Korean Defense Ministry noticed the opportunity and shifted from low-paying Fiverr gigs to high-paying startup gigs.** Why not? Most of HR sucks at recruiting. And even if it wouldn't, the recruiting pipeline through remote channels is long, dark and full of terrors.
 
-It's hard to get hired at *Metasoft*, or that Milwaukee B2B company. Interview, background check, IBAN, SWIFT, W8-BEN required. The Head of Engineering wants to small talk every day with the video on. The security engineer on payroll, harsh and loud, has too many questions.
-
-It's easy to get paid at *CryptoMeme*, or that contributions-based grant program of theirs. Next to no interview, background check based on the quality of the NFT avatar, crypto address only required—what's an IBAN? The Head of Engineering is nineteen years old, a great coder, doesn't talk much. The security engineer is on Twitter, yelling; founders crack jokes about it - "a washed up nobody".
-
-I hope the contrast is clear.
 ## Worker or Hacker?
-
-**A DPRK IT worker is not a DPRK hacker.** With caveats.
+**A DPRK IT worker is not a DPRK hacker.** <sub>*with caveats</sub>
  
 Hackers are smart, aggressive, focused on exploitation, lurking in the shadows. They take a picture of the lock after disabling the CCTV. Return with a crafted lock-pick. Open the door, grab the stash, make a run.
 
@@ -79,7 +75,7 @@ Subpar operational security (Point 2) and future hacking activities (Point 4) ar
 
 ## Postscriptum
 
-I mostly referred to Web3 examples, that's where we operate right now and where we have the biggest successes. But we consistently find companies and projects outside of the Web3 being affected. Those are somewhat even more clueless, not used as much to operating in a high-risk spaces.
+I mostly referred to Web3 examples, that's where we operate right now and where we have the biggest successes. But we consistently find companies and projects outside of the Web3 being affected (see, [Mandiant write up that's more focused on DPRK IT Workers in the regular software world](https://cloud.google.com/blog/topics/threat-intelligence/mitigating-dprk-it-worker-threat)). Those are somewhat even more clueless, not used as much to operating in a high-risk spaces.
 
 Additionally, it's just the tip of the iceberg. A loose collection of thoughts on experiences from the last month where we landed in our first "war room" meetings related to the DPRK IT worker problem. I was recently asked, "How do you spot them?"—it's 50% data analysis/mining and 50% vibes at this point. I want to push the ratio more toward automation, although I already know it won't be possible to automate in 100%. So, don't expect this turning into a bullshit fix-it-all SaaS solution anytime soon and beware of people making such claim. It requires more granular approach and participation all the way from the bottom of the software world - security engineers, engineers, communities, projects and even government. We will continue to be the pain in the ass for *the DPRK boys* though.
 

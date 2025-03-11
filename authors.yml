@@ -1,3 +1,8 @@
+- nickname: ketman
+  avatar: avatars/ketman_av.png
+  bio: Official account of the project
+  socials:
+    github: https://github.com/ketman-org
 - nickname: blackbigswan
   avatar: avatars/bbs_av.png
   bio: Software engineer and security researcher

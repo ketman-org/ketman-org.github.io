@@ -3,24 +3,36 @@ title: Ketman
 type: page
 ---
 
-We recommend reading [Introducing Ketman Project](https://ketman.org/introducing-ketman-project.html) for a detailed breakdown of our approach to threat intelligence and open source software security.
+We recommend reading ["Introducing Ketman Project"](https://ketman.org/introducing-ketman-project.html) for a detailed breakdown of our approach to threat intelligence and open source software security.
 
 ## What We Do
 
 We're experience-driven, consistently updating our techniques, tactics, and procedures for securing the open source ecosystem. Our expertise includes:
 
-* Active threat hunting for DPRK IT Workers and other impersonators in the software development space
-* Assessing risks for open source organizations, red teaming hiring pipelines, and evaluating remote contributors
-* Developing automated software solutions for organizations and security teams
+* Active **threat hunting for DPRK IT Workers and other impersonators** in the software development space
+* Assessing **risks for open source** organizations, **red teaming hiring** pipelines, and evaluating remote contributors
+* Developing **automated software solutions for organizations** and security teams
+* Deep **digital due diligence** leveraging battle-tested experience
+
+Parts of this work are done as a public good service (We don't expect getting paid for reporting discovered DPRK in your organization during our regular scanning activity) and open source software development (We make the code available for some of the tools built).
 
 ## When We Can Help
 
-* You want to verify contributors are who they claim to be
-* You need to eliminate potential entry points into your organization via remote contributors
-* You require quick background checks on current or past contributors
-* You're dealing with excessive PR/Issue spam
+* You require **background checks** on current or past contributors. You want to verify contributors are who they claim to be.
+* You need to **eliminate potential entry points into your organization** via remote contributors
+* You're dealing with excessive **PR/Issue spam**
+* You require an **evaluation of your partnership team's security** and quality
+* You want to stay informed about the **latest insider threats and their TTPs**
 
-### Company Name
+## How We Can Help
+
+* We have extensive experience **uncovering deeply hidden threat actors** through standard and automated investigative methodologies
+* We leverage a **curated and industry-unique dataset** of active threat actors
+* We possess **strong professional experience** in both threat intelligence and security software development
+* We operate **24/7/365**
+* We can actively **protect your organization in real-time** through the deployment of software solutions
+
+### Name
 
 Chapter III of Czesław Miłosz's book "The Captive Mind":
 
