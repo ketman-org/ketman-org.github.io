@@ -44,7 +44,7 @@ jobs:
           ls -la ./output/static || echo "Static directory not found"
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./output
 
