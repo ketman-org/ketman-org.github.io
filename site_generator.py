@@ -177,13 +177,8 @@ class KetmanSiteGenerator:
                 **front_matter,
             }
 
-            # Keep the original date string for sorting
             if "date" in article_data:
-                original_date = article_data["date"]
-                # Format date for display
                 article_data["date"] = format_date(article_data["date"])
-                # But store original for sorting
-                article_data["sort_date"] = original_date
 
             articles.append(article_data)
 
@@ -197,25 +192,46 @@ class KetmanSiteGenerator:
                         author["articles"].append(article_data)
                         break
 
-        # Sort articles by parsing the original date directly
-        sorted_articles = sorted(
-            articles,
-            key=lambda x: datetime.strptime(x.get("sort_date", "1970-01-01"), "%Y-%m-%d") 
-            if isinstance(x.get("sort_date"), str) 
-            else datetime.now(),
-            reverse=True,
-        )
-
         # Sort articles for each author
         for author in self.authors:
             author["articles"].sort(
-                key=lambda x: datetime.strptime(x.get("sort_date", "1970-01-01"), "%Y-%m-%d")
-                if isinstance(x.get("sort_date"), str)
+                key=lambda x: datetime.strptime(x.get("date", ""), "%A, %B %d, %Y")
+                if isinstance(x.get("date"), str)
                 else datetime.now(),
                 reverse=True
             )
 
-        return sorted_articles, pages
+        # Load pages from pages directory
+        if os.path.exists(self.pages_dir):
+            for filename in os.listdir(self.pages_dir):
+                if not filename.endswith(".md"):
+                    continue
+
+                filepath = os.path.join(self.pages_dir, filename)
+                front_matter, main_content = self.parse_markdown_file(filepath)
+
+                if not front_matter:
+                    continue
+
+                pages[filename] = {
+                    "content": main_content,
+                    "url": filename.replace(".md", ".html"),
+                    "title": front_matter.get("title", ""),
+                    **front_matter,
+                }
+
+        return (
+            sorted(
+                articles,
+                key=lambda x: (
+                    datetime.strptime(x.get("date", ""), "%A, %B %d, %Y")
+                    if isinstance(x.get("date"), str)
+                    else datetime.now()
+                ),
+                reverse=True,
+            ),
+            pages,
+        )
 
     def generate_category_pages(self):
         """Generate individual category pages."""
