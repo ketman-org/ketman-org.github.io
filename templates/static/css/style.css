@@ -492,6 +492,40 @@ footer {
     margin: 1em 0;
 }
 
+.page-content h1 {
+    font-size: 2rem;
+    margin: 1.5rem 0;
+}
+
+.page-content h2 {
+    font-size: 1.75rem;
+    margin: 1.25rem 0;
+}
+
+.page-content h3 {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
+
+.page-content h4 {
+    font-size: 1.25rem;
+    margin: 0.75rem 0;
+}
+
+.page-content h5 {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+}
+
+.page-content h6 {
+    font-size: 0.875rem;
+    margin: 0.25rem 0;
+}
+
+.page-content ul {
+    margin: 1em 0 1.5em 2em;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .categories-grid {

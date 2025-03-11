@@ -1,12 +1,12 @@
 ---
 title: Introducing Ketman Project
-date: 2024-11-01
+date: 2024-11-03
 categories:
   - Software
   - Investigation
 authors: [blackbigswan, 0xfigo]
 image: another-image.png
-featured: true
+# featured: true
 excerpt: In the ever-evolving landscape of cybersecurity, traditional methods of tracking threat actors through hashes, IPs, and websites are not enough. Today...
 ---
 
