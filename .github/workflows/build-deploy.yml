@@ -1,4 +1,3 @@
-# .github/workflows/build-deploy.yml
 name: Build and Deploy
 on:
   push:
@@ -47,6 +46,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./output
+          name: github-pages
 
   deploy:
     environment:
