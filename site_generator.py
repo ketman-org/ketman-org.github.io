@@ -11,6 +11,7 @@ def format_date(date_value):
     """Helper function to handle date formatting consistently."""
     if isinstance(date_value, str):
         try:
+            # Parse YYYY-MM-DD format and convert to display format
             return datetime.strptime(date_value, "%Y-%m-%d").strftime("%A, %B %d, %Y")
         except ValueError:
             return date_value
@@ -224,11 +225,12 @@ class KetmanSiteGenerator:
             sorted(
                 articles,
                 key=lambda x: (
-                    datetime.strptime(x.get("date", ""), "%A, %B %d, %Y")
-                    if isinstance(x.get("date"), str)
-                    else datetime.now()
+                    # Convert datetime.date to datetime for comparison
+                    datetime.combine(x["date"], datetime.min.time()) 
+                    if hasattr(x.get("date"), "year") 
+                    else datetime.strptime(x.get("date", "1900-01-01"), "%Y-%m-%d")
                 ),
-                reverse=True,
+                reverse=True,  # Newest first
             ),
             pages,
         )
@@ -241,11 +243,11 @@ class KetmanSiteGenerator:
             sorted_articles = sorted(
                 articles,
                 key=lambda x: (
-                    datetime.strptime(x.get("date", ""), "%A, %B %d, %Y")
-                    if isinstance(x.get("date"), str)
-                    else datetime.now()
+                    datetime.combine(x["date"], datetime.min.time())
+                    if hasattr(x.get("date"), "year")
+                    else datetime.strptime(x.get("date", "1900-01-01"), "%Y-%m-%d")
                 ),
-                reverse=True,
+                reverse=True  # Newest first
             )
 
             # Create deep copies of articles to avoid modifying originals

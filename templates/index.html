@@ -3,12 +3,13 @@
 
 {% block content %}
 <!-- Featured section -->
+<!-- Articles can be ordered using the 'order' field in the front matter. Lower numbers appear first. -->
 <div class="featured-section">
     {% set featured = namespace(found=false) %}
     {% for article in articles %}
         {% if article.featured and not featured.found %}
             {% set featured.found = true %}
-            <div class="featured-article">
+            <div class="featured-article"{% if article.order %} data-order="{{ article.order }}"{% endif %}>
                 {% if article.image %}
                 <div class="featured-image">
                     <img src="{{ article.image }}" alt="{{ article.title }}">
@@ -44,9 +45,15 @@
 
     <div class="top-articles">
         {% set count = namespace(value=0) %}
+        {% set featured_id = namespace(value=none) %}
         {% for article in articles %}
-            {% if not article.featured and count.value < 3 %}
-                <article class="top-article">
+            {% if article.featured %}
+                {% set featured_id.value = article.url %}
+            {% endif %}
+        {% endfor %}
+        {% for article in articles %}
+            {% if article.url != featured_id.value and count.value < 3 %}
+                <article class="top-article"{% if article.order %} data-order="{{ article.order }}"{% endif %}>
                     <div class="top-article-image">
                         {% if article.image %}
                         <div class="article-image">
@@ -91,7 +98,7 @@
 <div class="articles-grid">
     {% for article in articles %}
         {% if not article.featured and loop.index > 3 %}
-        <article class="article-card">
+        <article class="article-card"{% if article.order %} data-order="{{ article.order }}"{% endif %}>
             {% if article.image %}
             <div class="article-image">
                 <img src="{{ article.image }}" alt="{{ article.title }}">
