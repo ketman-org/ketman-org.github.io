@@ -41,7 +41,7 @@ Hackers are smart, aggressive, focused on exploitation, lurking in the shadows. 
 
 **Workers are average (with exceptions), passive (almost no exceptions), spamming their way to success (relentlessly), in the open**. They will put on a hardhat, and you'll wave them in. They might even do some electrical work while at it, although you will need to hire a certified specialist to re-wire everything afterward.
 
-DPRK IT worker service is compromised by:
+DPRK IT worker service consists of:
 
 1. **Defrauding the company:** The company is paying someone whose identity they do not know.
 2. **Subpar operational security:** DPRK IT workers share credentials among themselves in open channels, have a poor command of Git, and unintentionally and intentionally leak granted access to third parties.
